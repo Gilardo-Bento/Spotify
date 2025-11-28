@@ -1,0 +1,182 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Spotify Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo ao Spotify Viewer</h1>
+
+  <p>Este painel demonstra o uso do access_token e do escopo <b>user-read-playback-state</b>.</p>
+
+  <button id="btnPlaying">Ver o que está tocando agora</button>
+
+  <pre id="result">{ clique no botão acima }</pre>
+
+  <script type="module">
+    import { checkAuthOnLoad, getCurrentPlaying } from "/src/spotify.js";
+
+    checkAuthOnLoad(); // restaura o token da sessionStorage
+
+    const btn = document.getElementById("btnPlaying");
+    const result = document.getElementById("result");
+
+    btn.onclick = async () => {
+      const response = await getCurrentPlaying();
+      result.textContent = JSON.stringify(response, null, 2);
+    };
+  </script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Viewer Dashboard</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      padding: 20px;
+      background: #1DB954;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    main {
+      max-width: 600px;
+      width: 100%;
+      margin-top: 40px;
+      text-align: center;
+    }
+    #nowPlaying {
+      margin-top: 20px;
+      padding: 20px;
+      background: #1e1e1e;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #nowPlaying img {
+      border-radius: 12px;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #1DB954;
+      color: #fff;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #1ed760;
+    }
+    .info {
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Spotify Viewer</header>
+
+  <main>
+    <p>Bem-vindo ao seu painel! Aqui você pode ver a música que está tocando agora.</p>
+
+    <div>
+      <button id="btnPlaying">Ver música atual</button>
+      <button id="btnLogout">Logout</button>
+    </div>
+
+    <div id="nowPlaying">
+      <p id="message">Clique em "Ver música atual" para carregar a música</p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { checkAuthOnLoad, getCurrentPlaying } from "/src/spotify.js";
+
+    checkAuthOnLoad();
+
+    const btn = document.getElementById("btnPlaying");
+    const logoutBtn = document.getElementById("btnLogout");
+    const nowPlayingDiv = document.getElementById("nowPlaying");
+    const message = document.getElementById("message");
+
+    btn.onclick = async () => {
+      message.textContent = "Carregando...";
+      const data = await getCurrentPlaying();
+
+      nowPlayingDiv.innerHTML = ""; // limpa conteúdo anterior
+
+      if (!data || !data.is_playing) {
+        nowPlayingDiv.innerHTML = "<p>Nenhuma música tocando no momento.</p>";
+        return;
+      }
+
+      const track = data.item;
+      const albumCover = track.album.images[0]?.url || "";
+      const trackName = track.name;
+      const artistName = track.artists.map(a => a.name).join(", ");
+
+      nowPlayingDiv.innerHTML = `
+        <img src="${albumCover}" alt="Capa do álbum">
+        <div class="info"><b>${trackName}</b></div>
+        <div class="info">${artistName}</div>
+      `;
+    };
+
+    logoutBtn.onclick = () => {
+      sessionStorage.removeItem("access_token");
+      alert("Logout realizado com sucesso!");
+      window.location = "/index.html";
+    };
+  </script>
+
+</body>
+</html>
