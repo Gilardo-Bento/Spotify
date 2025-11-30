@@ -11,9 +11,10 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/Spotify/",   // nome EXATO do repositório
+  base: "/Spotify/",
   server: {
     host: "127.0.0.1",
-    port: 5173
-  }
+    port: 5173,
+  },
 });
+

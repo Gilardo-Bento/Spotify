@@ -24,7 +24,7 @@
 // setupCounter(document.querySelector('#counter'))
 
 import "./style.css";
-import { renderApp } from "./App.js";
+import { renderApp } from "./app.js";
 import { checkAuthOnLoad } from "./spotify.js";
 
 // Quando a página carrega, verifica se o usuário já está autenticado
