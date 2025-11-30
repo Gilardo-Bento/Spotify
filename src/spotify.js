@@ -1,7 +1,9 @@
 
 import { sha256, randomString } from "./pkce.js";
 
-export const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+//export const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+export const CLIENT_ID = "f7411da27cba45009479d9d3ddfee761";
+
 
 // Detecta ambiente DEV x PRODUÇÃO
 const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
