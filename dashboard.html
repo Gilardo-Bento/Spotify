@@ -137,47 +137,8 @@
       <p id="message">Clique em "Ver música atual" para carregar a música</p>
     </div>
   </main>
-<script type="module">
-  import { checkAuthOnLoad, getCurrentPlaying } from "./src/spotify.js";
 
-  checkAuthOnLoad();
-
-  const btn = document.getElementById("btnPlaying");
-  const logoutBtn = document.getElementById("btnLogout");
-  const nowPlayingDiv = document.getElementById("nowPlaying");
-  const message = document.getElementById("message");
-
-  btn.onclick = async () => {
-    message.textContent = "Carregando...";
-    const data = await getCurrentPlaying();
-
-    nowPlayingDiv.innerHTML = "";
-
-    if (!data || !data.is_playing) {
-      nowPlayingDiv.innerHTML = "<p>Nenhuma música tocando no momento.</p>";
-      return;
-    }
-
-    const track = data.item;
-    const albumCover = track.album.images[0]?.url || "";
-    const trackName = track.name;
-    const artistName = track.artists.map(a => a.name).join(", ");
-
-    nowPlayingDiv.innerHTML = `
-      <img src="${albumCover}" alt="Capa do álbum">
-      <div class="info"><b>${trackName}</b></div>
-      <div class="info">${artistName}</div>
-    `;
-  };
-
-  logoutBtn.onclick = () => {
-    sessionStorage.removeItem("access_token");
-    alert("Logout realizado com sucesso!");
-    window.location = "/Spotify/index.html";
-  };
-</script>
-
-  <!-- <script type="module">
+  <script type="module">
     import { checkAuthOnLoad, getCurrentPlaying } from "/src/spotify.js";
 
     checkAuthOnLoad();
@@ -215,7 +176,7 @@
       alert("Logout realizado com sucesso!");
       window.location = "/index.html";
     };
-  </script> -->
+  </script>
 
 </body>
 </html>
