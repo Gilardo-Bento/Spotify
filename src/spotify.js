@@ -1,4 +1,3 @@
-// 
 
 import { sha256, randomString } from "./pkce.js";
 
@@ -44,7 +43,9 @@ export async function login() {
     scope: "user-read-playback-state"  // Viewer
   });
 
-  window.location = `${AUTH_URL}?${params.toString()}`;
+  //window.location = `${AUTH_URL}?${params.toString()}`;
+  window.location = "https://gilardo-bento.github.io/Spotify/dashboard.html";
+
 }
 
 // ========================================
