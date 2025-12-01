@@ -1,4 +1,3 @@
-export const SCOPES = import.meta.env.VITE_SCOPES;
 
 import { sha256, randomString } from "./pkce.js";
 
