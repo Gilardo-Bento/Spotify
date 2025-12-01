@@ -39,11 +39,11 @@ name: Deploy Vite App to GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]  # Substitua se seu branch principal for outro
+    branches: [ "master" ]  # ou "master", conforme seu repositório
 
 permissions:
-  contents: write
-  pages: write
+  contents: write   # necessário para push
+  pages: write      # necessário para GitHub Pages
 
 jobs:
   build-deploy:
@@ -71,3 +71,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
