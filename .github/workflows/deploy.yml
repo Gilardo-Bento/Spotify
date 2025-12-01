@@ -1,12 +1,51 @@
 
+# name: Deploy Vite App to GitHub Pages
+
+# on:
+#   push:
+#     branches: [ "master" ]  # ou main
+
+# permissions:
+#   contents: write   # <<=== ESSENCIAL
+#   pages: write
+
+# jobs:
+#   build-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Build project
+#         run: npm run build
+
+#       - name: Deploy to GitHub Pages
+#         uses: peaceiris/actions-gh-pages@v4
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./dist
+
+
+#funcinal
+
+
 name: Deploy Vite App to GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]  # ou main
+    branches: [ "master" ]
 
 permissions:
-  contents: write   # <<=== ESSENCIAL
+  contents: write
   pages: write
 
 jobs:
@@ -25,12 +64,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set Environment Variables
+        run: echo "VITE_SPOTIFY_CLIENT_ID=${{ secrets.VITE_SPOTIFY_CLIENT_ID }}" >> .env.production
+
       - name: Build project
-        run: npm run build
+        run: npm run build -- --mode production
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
