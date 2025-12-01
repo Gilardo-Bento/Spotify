@@ -10,7 +10,7 @@ const isLocal = location.hostname === "localhost" || location.hostname === "127.
 
 export const REDIRECT_URI = isLocal
   ? "http://127.0.0.1:5173/callback"
-  : "https://gilardo-bento.github.io/Spotify/callback";
+  : "https://Gilardo-Bento.github.io/Spotify/callback";
 
 // ENDPOINTS
 export const AUTH_URL = "https://accounts.spotify.com/authorize";
