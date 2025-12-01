@@ -1,14 +1,12 @@
 
-
-
 # name: Deploy Vite App to GitHub Pages
 
 # on:
 #   push:
-#     branches: [ "master" ]  # ajuste para 'master' se necessário
+#     branches: [ "master" ]  # ou main
 
 # permissions:
-#   contents: read
+#   contents: write   # <<=== ESSENCIAL
 #   pages: write
 
 # jobs:
@@ -41,10 +39,10 @@ name: Deploy Vite App to GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]  # ou main
+    branches: [ "main" ]  # Substitua se seu branch principal for outro
 
 permissions:
-  contents: write   # <<=== ESSENCIAL
+  contents: write
   pages: write
 
 jobs:
@@ -52,10 +50,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -65,6 +63,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
