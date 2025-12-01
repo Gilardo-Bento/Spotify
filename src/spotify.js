@@ -1,3 +1,4 @@
+export const SCOPES = import.meta.env.VITE_SCOPES;
 
 import { sha256, randomString } from "./pkce.js";
 
@@ -94,9 +95,9 @@ export async function handleCallback() {
   accessToken = data.access_token; // memória
 
   sessionStorage.setItem("access_token", data.access_token); // opcional
-
-  window.location = "./dashboard.html";
-  //window.location = `${location.origin}/Spotify/dashboard.html`;
+//local
+  //window.location = "dashboard.html";
+  window.location = `${location.origin}/Spotify/dashboard.html`;
 
 }
 
