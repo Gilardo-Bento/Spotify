@@ -39,7 +39,7 @@ name: Deploy Vite App to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]  # Substitua se seu branch principal for outro
+    branches: [ "master" ]  # Substitua se seu branch principal for outro
 
 permissions:
   contents: write
