@@ -95,7 +95,9 @@ export async function handleCallback() {
 
   sessionStorage.setItem("access_token", data.access_token); // opcional
 
-  window.location = "./dashboard.html";
+  //window.location = "./dashboard.html";
+  window.location = `${location.origin}/Spotify/dashboard.html`;
+
 }
 
 // ========================================
